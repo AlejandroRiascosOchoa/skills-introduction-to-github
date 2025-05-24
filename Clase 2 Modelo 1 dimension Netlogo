@@ -1,0 +1,17 @@
+Movimiento en una dimensión 1D
+  Ecuaciones de movimiento
+    a=constante
+    v=v_0 + at
+    x=x_0 + v_0 t + 1/2 a t^2
+MODELO
+    Descripción: carro que se mueve en trayectoria recta
+    Parámetros:
+        a--- aceleración
+        v_0-- velocidad inicial
+        x_0-- posición inicial
+    Agentes ( tortugas y parches)
+    Propiedades del carro:
+        Velocidad y posición
+    Aproximación discreta
+        x(t) = x (t-1) + v(t-1) dt + 1/2 a dt^2
+        v(t) = v (t-1) + a dt
