@@ -15,3 +15,40 @@ MODELO
     Aproximación discreta
         x(t) = x (t-1) + v(t-1) dt + 1/2 a dt^2
         v(t) = v (t-1) + a dt
+
+CODIGO NETLOGO
+;; MODELO MOVIMIENTO EN 1 DIMENSIÓN
+
+;1 Propiedades de las tortugas
+turtles-own [ posicion velocidad ] ;; variable posición y velocidad.
+
+;;2  Definir una variable global dt
+
+globals [ delta-t ] ; Variable global dt
+
+
+to setup
+  clear-all
+    set delta-t (0.1) ; configuramos la variable delta t
+    create-turtles 1 [
+    set shape "car"
+    set color green
+    set posicion -10
+    set xcor posicion
+    set velocidad velocidad-inicial
+  ]
+
+  reset-ticks ; iteración de tiempo. Reinicialice el contador de ticks. Inicializar el tiempo en cada iteración.
+end
+
+
+to go
+  ask turtles [desplazarse]
+  tick
+end
+
+to desplazarse
+  set posicion posicion + (velocidad * delta-t)+(.5 * aceleracion * delta-t ^ 2)
+  set velocidad velocidad + aceleracion * delta-t
+  set xcor posicion
+end
