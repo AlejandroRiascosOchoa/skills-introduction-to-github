@@ -1,0 +1,73 @@
+MOVIMIENTO PARABÓLICO
+Lanzamiento de un proyectil con un angulo Theta y velocidad V0
+v0x=vocos(theta)
+v0y=v0sen(theta)
+
+Ecuaciones de movimiento
+a=ax+ay    ax=0, ay= -9,8m/s2
+v=vx+vy    vx=v0cos(theta) vy=v0sen(Theta) - ayt
+r=x+y      x=x0 + v0cos(theta)t , y=y0+v0sen(theta)t - 1/2ayt^2
+
+
+MODELO AGENTES
+  Descripción : trayectoria de un proyectil
+  Parámetros: Theta, v0 ,ay
+  Agentes: tortugas-proyectil
+  Propiedades : posiciónX posiciónY velocidadX velocidadY
+  Aproximación discreta: 
+    y(t)=y(t-1) + vy(t-1)delta-t + 1/2 ay delta-t^2
+    vy(t)=vy(t-1) + ay(delta-t)
+    x(t)=x(t-1) + vx(t-1)delta-t
+    vx(t)=vx(t-1) = v0cos(theta)}
+
+
+CODIGO EN NETLOGO
+;; MODELO MOVIMIENTO EN 1 DIMENSIÓN
+
+;1 Propiedades de las tortugas
+turtles-own [ posicion-x velocidad-x posicion-y velocidad-y ] ;; variable posición y velocidad.
+
+;;2  Definir una variable global dt
+
+globals [ delta-t aterrizo?] ; Variable global dt
+
+
+to setup
+  clear-all
+    set delta-t (0.01) ; configuramos la variable delta t
+set aterrizo? False
+  
+  create-turtles 1 [
+    set shape "circle"
+    set color white
+    set posicion-x 0
+    set posicion-y 0
+    set velocidad-x velocidad-inicial * cos Angulo
+    set velocidad-y velocidad-inicial * sin Angulo
+    pen-down
+    
+   
+    ;set xcor posicionx
+    ;set ycor posiciony
+    ;set velocidad velocidad-inicial
+  ]
+ ask patches [ set pcolor blue ]
+    ask patches with [pycor <= 0 ] [set pcolor green]
+  reset-ticks ; iteración de tiempo. Reinicialice el contador de ticks. Inicializar el tiempo en cada iteración.
+end
+
+
+to go
+  ask turtles [desplazarse]
+  if aterrizo? [stop]
+  tick
+end
+
+to desplazarse
+  set posicion-x posicion-x + (velocidad-x * delta-t)+(.5 * aceleracion-x * delta-t ^ 2)
+  set posicion-y posicion-y + (velocidad-y * delta-t)+(.5 * aceleracion-y * delta-t ^ 2)
+  set velocidad-x velocidad-x + aceleracion-x * delta-t
+  set velocidad-y velocidad-y + aceleracion-y * delta-t
+  
+  ifelse posicion-y < 0 or posicion-y > max-pycor or posicion-x > max-pycor [set aterrizo? True][  setxy posicion-x posicion-y]
+end
