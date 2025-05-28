@@ -1,0 +1,88 @@
+MOVIMIENTO OSCILADOR ARMÓNICO
+  Ley de Hooke
+  F = - kx
+  Sin fricción
+  Segunda ley de Newton
+  F = ma = m x´´
+Solución analítica
+  x(t) = A cos (wt- phy)
+  v(t) = x´= - A w sin (wt - phy)
+  K(t) = 1/2 m v^2(t) = 1/2 m w^2 A^2 sin^2 (wt - phy) = 1/2kA^2 sin ^2 (wt-phy)
+  U(t) = 1/2 k x^2 (t) = 1/2 k A^2 cos ^2 (wt- phy)
+  E = K + U =1/2 k A^2
+Solución numérica
+  x(t) = x(t-1) + v(t-1) delta-t Aproximación lineal
+  v(t) = v(t-1) + a(t-1) delta-t
+  K(t) = 1/2 m v(t) ^2
+  U(t) = 1/2 k x(t) ^2
+  E(t) = K(t) + U(t)
+
+MODELO
+  Descripción
+    Movimiento de un resorte
+  Parámetros
+    m: masa
+    k: constante del resorte
+    x0 : posición inicial
+    v0 : velocidad inicial
+  Agentes
+    Bloque de masa m
+  Propiedades
+    F a v x m
+  Aproximación
+    Método de integración de Euler.
+
+CODIGO NETLOGO
+
+turtles-own[F a v x m]
+
+globals [delta-t]
+
+
+to setup
+  clear-all
+  set delta-t 0.1
+  create-turtles 1 [
+  set shape "box"
+    set color red
+    set m masa
+    set x x0-posicion-inicial
+    set v 0
+    set F ( - k * x )
+    set a F / m
+    set size m
+    setxy x 0 ; coordenadas en x=x=x0-posicion-inicial en y=0
+    pendown
+  ]
+  ask patches with [pxcor = 0][set pcolor yellow]  ;
+
+
+  reset-ticks
+end
+
+
+to go
+  ask turtles [
+    set F ( - k * x )
+    set a F / m
+    set v v + ( a * delta-t)  ; metodo numérico Euler aproximación lineal
+    set x x + ( v * delta-t)  ; método numérico Euler aproximación lineal
+    setxy x 0
+
+  ]
+
+  tick
+end
+
+;función que le retorne algo
+
+to-report Energia-cinetica
+  report 0.5 * [ m ] of one-of turtles * ( [ v ] of one-of turtles ) ^ 2
+
+end
+
+to-report Energia-potencial
+  report 0.5 * k * ([ x ] of one-of turtles ) ^ 2
+end
+
+
