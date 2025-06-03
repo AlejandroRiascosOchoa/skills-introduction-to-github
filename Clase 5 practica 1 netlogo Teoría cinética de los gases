@@ -1,0 +1,40 @@
+TEORÍA CINÉTICA DE LOS GASES
+  Supuestos microscopicos
+    -Particulas puntuales (toda su masa en un solo punto)
+    -No interactuan entre si( no largo alcance)
+    -Movimiento en línea recta y rapidez constante
+    -Choques elásticos. Con las paredes y entre ellas mismas
+        -Conservación de la energía cinética.
+        -Conservación del momentum lineal.
+        -Fuerza ejercida por una partícula sobre la pared 2mv
+  Propiedades macroscópicas
+    -Volumen: espacio en el que se mueven las partículas
+    -Presión: Fuerza de las partículas por unidad de area.
+    -Temperatura: Energía cinética de las partículas.
+
+MODELO
+  Descripción: Caja ( mundo de netlogo) donde hay particulas que chocan.
+    - Calulcar P V T  
+  Parámetros:
+    - Numero de partículas N
+    - Tamaño de la caja Porcentaje que ocupa la caja del mundo de netlogo
+    - Velocidad inicial (Distribución uniforme)
+  Agentes
+    - Partículas
+  Propiedades de las partículas
+    - posición x, y
+    - velocidad x, y
+  Aproximación:
+    Volumen--> es un área de la caja
+    Presión --> 2mv/ longitud de la pared (lado) En cada iteración del modelo 
+      se calcula cuantas partículas chocan en la pared y se suma.
+     Se hace una 
+    Temperatura --> V^2 = v1^2 + v2^2 +++ etc.
+
+
+
+
+
+
+  
+  
