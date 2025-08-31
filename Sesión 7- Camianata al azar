@@ -1,0 +1,42 @@
+turtles-own [ pos-x]
+
+to setup
+  clear-all
+
+  set-default-shape turtles "dot"
+
+  create-turtles num-caminantes
+
+  let tamanio-espacio world-height / num-caminantes
+
+  foreach sort turtles [
+   caminante ->
+   ask caminante [
+     set pos-x 0
+     let pos-y min-pycor + who * tamanio-espacio
+     setxy pos-x pos-y
+     set heading 90   ; posición mirando hacia la derecha 90 grados. En netlogo el 0 grados es hacia arriba
+    ]
+]
+  ;ask turtle 0 [set size 10]
+  reset-ticks
+end
+
+to go
+  ask turtles [
+    ifelse random-float 1 < p
+    [set pos-x pos-x + 1]
+    [set pos-x pos-x - 1]
+
+    if bordes?[
+      if pos-x > max-pxcor
+      [set pos-x pos-x - 2]
+      if pos-x < min-pxcor
+      [set pos-x pos-x + 2]
+
+    ]
+    set xcor pos-x
+ ]
+
+  tick
+end
